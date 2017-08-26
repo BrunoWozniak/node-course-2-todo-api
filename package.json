@@ -4,9 +4,13 @@
   "description": "APIs and MongoDB based app in Node.js (training purpose)",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "mocha server/**/*.test.js",
     "test-watch": "nodemon --exec 'npm test'"
   },
+  "engines": {
+    "node": "6.9.4"
+  }
   "author": "Bruno Wozniak",
   "license": "ISC",
   "dependencies": {
