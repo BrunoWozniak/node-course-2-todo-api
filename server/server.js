@@ -36,7 +36,7 @@ app.get('/todos', (req, res) => {
     res.status(400).send(err);
   })
 }, (err) => {
-  console.log('Error', err);
+  res.status(400).send();
 });
 
 // GET /todos/:id
@@ -110,7 +110,6 @@ app.post('/users', (req, res) => {
   user.save().then(() => {
     return user.generateAuthToken();
   }).then((token) => {
-    console.log(`Token: ${token}`);
     res.header('x-auth', token).send(user);
   }).catch((err) => {
     res.status(400).send(err);
