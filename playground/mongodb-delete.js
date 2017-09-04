@@ -22,14 +22,12 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   //   console.log(result);
   // });
 
-  // deleteMany Users with name Bruno Wozniak
-  db.collection('Users').deleteMany({name: 'Bruno Wozniak'}).then((result) => {
-    console.log(result);
-  });
+  // db.collection('Users').deleteMany({name: 'Andrew'});
 
-  // findOneAndDelete User with ID 59a15c496d85e504e3f7785b (Jack Bauer)
-  db.collection('Users').findOneAndDelete({_id: new ObjectID('59a15c496d85e504e3f7785b')}).then((result) => {
-    console.log(result);
+  db.collection('Users').findOneAndDelete({
+    _id: new ObjectID("57ac8d47878a299e5dc21bc8")
+  }).then((results) => {
+    console.log(JSON.stringify(results, undefined, 2));
   });
 
   // db.close();

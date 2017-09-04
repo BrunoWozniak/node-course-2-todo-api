@@ -8,7 +8,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   console.log('Connected to MongoDB server');
 
   // db.collection('Todos').findOneAndUpdate({
-  //   _id: new ObjectID('59a16da29baf09b1370d0b16')
+  //   _id: new ObjectID('57bc4b15b3b6a3801d8c47a2')
   // }, {
   //   $set: {
   //     completed: true
@@ -20,19 +20,19 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   // });
 
   db.collection('Users').findOneAndUpdate({
-    _id: new ObjectID("59a15f17580fec04ed2464b3")
-    }, {
-      $set: {
-        name: 'Bruno Wozniak'
-      },
-      $inc: {
-          age: 1
-      }
-    }, {
-        returnOriginal: false
-    }).then((result) => {
-      console.log(result);
-    });
+    _id: new ObjectID('57abbcf4fd13a094e481cf2c')
+  }, {
+    $set: {
+      name: 'Andrew'
+    },
+    $inc: {
+      age: 1
+    }
+  }, {
+    returnOriginal: false
+  }).then((result) => {
+    console.log(result);
+  });
 
   // db.close();
 });
