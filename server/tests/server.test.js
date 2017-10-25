@@ -13,23 +13,26 @@ beforeEach(populateTodos);
 describe('POST /todos', () => {
   it('should create a new todo', (done) => {
     var text = 'Test todo text';
+    const dueAt = 1000000;
 
     request(app)
       .post('/todos')
       .set('x-auth', users[0].tokens[0].token)
-      .send({text})
+      .send({text, dueAt})
       .expect(200)
       .expect((res) => {
         expect(res.body.text).toBe(text);
+        expect(res.body.dueAt).toEqual(dueAt);
       })
       .end((err, res) => {
         if (err) {
           return done(err);
         }
 
-        Todo.find({text}).then((todos) => {
+        Todo.find({text, dueAt}).then((todos) => {
           expect(todos.length).toBe(1);
           expect(todos[0].text).toBe(text);
+          expect(todos[0].dueAt).toEqual(dueAt);
           done();
         }).catch((e) => done(e));
       });
@@ -75,6 +78,7 @@ describe('GET /todos/:id', () => {
       .expect(200)
       .expect((res) => {
         expect(res.body.todo.text).toBe(todos[0].text);
+        expect(res.body.todo.dueAt).toEqual(todos[0].dueAt);
       })
       .end(done);
   });
@@ -171,17 +175,20 @@ describe('PATCH /todos/:id', () => {
   it('should update the todo', (done) => {
     var hexId = todos[0]._id.toHexString();
     var text = 'This should be the new text';
+    const dueAt = 0;
 
     request(app)
       .patch(`/todos/${hexId}`)
       .set('x-auth', users[0].tokens[0].token)
       .send({
         completed: true,
-        text
+        text,
+        dueAt
       })
       .expect(200)
       .expect((res) => {
         expect(res.body.todo.text).toBe(text);
+        expect(res.body.todo.dueAt).toEqual(dueAt);
         expect(res.body.todo.completed).toBe(true);
         expect(typeof res.body.todo.completedAt).toBe('number');
       })

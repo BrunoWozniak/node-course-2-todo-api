@@ -28,6 +28,7 @@ app.use(bodyParser.json());
 app.post('/todos', authenticate, async(req, res) => {
    const todo = new Todo({
       text: req.body.text,
+      dueAt: req.body.dueAt,
       _creator: req.user._id
    });
 
@@ -110,7 +111,7 @@ app.delete('/todos/:id', authenticate, async(req, res) => {
 
 app.patch('/todos/:id', authenticate, async (req, res) => {
    var id = req.params.id;
-   var body = _.pick(req.body, ['text', 'completed']);
+   var body = _.pick(req.body, ['text', 'dueAt', 'completed']);
 
    if (!ObjectID.isValid(id)) {
       return res.status(404)
