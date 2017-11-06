@@ -2,26 +2,28 @@ require('./config/config');
 
 const _ = require('lodash');
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const {
    ObjectID
 } = require('mongodb');
 
-var {
-   mongoose
-} = require('./db/mongoose');
-var {
-   Todo
-} = require('./models/todo');
-var {
-   User
-} = require('./models/user');
-var {
-   authenticate
-} = require('./middleware/authenticate');
+var { mongoose } = require('./db/mongoose');
+var { Todo } = require('./models/todo');
+var { User } = require('./models/user');
+var { authenticate } = require('./middleware/authenticate');
 
 var app = express();
 const port = process.env.PORT;
+
+// app.use(cors());
+app.use((req, res, next) => {
+      res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+      res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+      res.header('Access-Control_Expose-Headers', 'x-auth, Content-Type');
+      res.header('Access-Control-Allow-Headers', 'x-auth, Content-Type');
+      next();
+});
 
 app.use(bodyParser.json());
 
