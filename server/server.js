@@ -17,13 +17,13 @@ var app = express();
 const port = process.env.PORT;
 
 // app.use(cors());
-app.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
-      res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-      res.header('Access-Control_Expose-Headers', 'x-auth, Content-Type');
-      res.header('Access-Control-Allow-Headers', 'x-auth, Content-Type');
-      next();
-});
+// app.use((req, res, next) => {
+//       res.header('Access-Control-Allow-Origin', '*');
+//       res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+//       res.header('Access-Control_Expose-Headers', 'x-auth, Content-Type');
+//       res.header('Access-Control-Allow-Headers', 'x-auth, Content-Type');
+//       next();
+// });
 
 app.use(bodyParser.json());
 
@@ -157,8 +157,9 @@ app.post('/users', async(req, res) => {
       const user = new User(body);
       await user.save();
       const token = await user.generateAuthToken();
-      res.header('x-auth', token)
-         .send(user);
+      // res.header('x-auth', token)
+      //    .send(user);
+      res.send(token);
    } catch (e) {
       res.status(400)
          .send(e);
@@ -174,8 +175,9 @@ app.post('/users/login', async(req, res) => {
       const body = _.pick(req.body, ['email', 'password']);
       const user = await User.findByCredentials(body.email, body.password);
       const token = await user.generateAuthToken();
-      res.header('x-auth', token)
-         .send(user);
+      // res.header('x-auth', token)
+      //    .send(user);
+      res.send(token);
    } catch (e) {
       res.status(400)
          .send();
